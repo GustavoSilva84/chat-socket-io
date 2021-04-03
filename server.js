@@ -18,9 +18,11 @@ io.on('connection', (socket) => {
 
     socket.on('enviar mensagem', (dados) => {
 
-        mensagens.push(dados);
-        console.log(mensagens);
-        io.emit('mostrar mensagem', dados)
+        if(dados.msg.length <= 2000) {
+            mensagens.push(dados);
+            console.log(mensagens);
+            io.emit('mostrar mensagem', dados)
+        }
 
     });
 
@@ -33,6 +35,11 @@ io.on('connection', (socket) => {
     // })
 
 })
+
+function checarComandos(x){
+    return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");  
+};
+
 
 http.listen(process.env.PORT || 8181, erro => {
 

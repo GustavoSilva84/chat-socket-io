@@ -146,6 +146,10 @@
                 return alert('Mensagem não preenchido');
             }
 
+            if(mensagem.value.length >= 2000){
+                return alert('Limite de caracteres utrapasado');
+            }
+
             socket.emit('enviar mensagem', {nome: nome, msg: mensagem.value, id: id});
             mensagem.value = '';
             
@@ -157,12 +161,12 @@
 
             if(id == dados.id) {
 
-                li.innerHTML = `<strong> Eu: </strong> ${dados.msg} `;
+                li.innerHTML = `<strong> Eu: </strong> ${checarComandos(dados.msg)} `;
                 li.classList.add('eu');
 
             }else {
 
-                li.innerHTML = `<strong> ${dados.nome}: </strong> ${dados.msg} `;
+                li.innerHTML = `<strong> ${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`;
                 li.classList.add('outros');
 
             }  
@@ -180,12 +184,12 @@
 
                 if(id == dados.id) {
 
-                    li.innerHTML = `<strong> Eu: </strong> ${dados.msg} `;
+                    li.innerHTML = `<strong> Eu: </strong> ${checarComandos(dados.msg)} `;
                     li.classList.add('eu');
 
                 }else {
 
-                    li.innerHTML = `<strong> ${dados.nome}: </strong> ${dados.msg} `;
+                    li.innerHTML = `<strong> ${checarComandos(dados.nome)}: </strong> ${checarComandos(dados.msg)} `;
                     li.classList.add('outros');
 
                 }  
@@ -198,15 +202,11 @@
         });
 
         mensagem.addEventListener('focus', () => {
-
             socket.emit('usuario dijitando', true)
-
         })
 
         mensagem.addEventListener('blur', () => {
-
             socket.emit('usuario dijitando', false)
-
         })
 
         socket.on('mostrar usuario dijitando', (dados) => {
@@ -220,6 +220,10 @@
             window.scrollTo(0, document.body.scrollHeight);
 
         });
+
+        function checarComandos(x){
+            return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");  
+        };
 
     </script>
 
