@@ -126,14 +126,8 @@ function checarComandos(x){
     return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");  
 };
 
-
-
 if(!("Notification" in window)) {
     alert("Este browser não suporta notificações de Desktop");
 }else {
     Notification.requestPermission()
 }
-
-new Notification('o', {
-    body: ''
-}).dispatchEvent( alert())
