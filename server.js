@@ -1,9 +1,12 @@
+
 const express = require('express');
 const app = express();
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+
+app.use(express.static(`${__dirname}/public`));
 const chalk = require('chalk');
 
 app.get('/', (req, res) => {
@@ -43,3 +46,5 @@ http.listen(8181, erro => {
     return console.log(`Servidor iniciado`);
 
 });
+
+
