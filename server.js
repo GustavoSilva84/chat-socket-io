@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
 
 })
 
-http.listen(8181, erro => {
+http.listen(process.env.PORT || 8181, erro => {
 
     if(erro) {
         return console.log(`Erro: ${erro}`);
