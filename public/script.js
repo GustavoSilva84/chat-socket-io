@@ -67,8 +67,12 @@ socket.on('mostrar mensagem', (dados) => {
     chat.appendChild(li);
     window.scrollTo(0, document.body.scrollHeight);
 
-    if(("Notification" in window)) {
-        new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+    try {
+        if(("Notification" in window)) {
+            new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+        }
+    }catch (erro) {
+        alert(`Não foi possivel enviar a notificação erro: ${erro}`)
     }
 
 });
