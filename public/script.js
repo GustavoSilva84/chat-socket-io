@@ -62,14 +62,14 @@ socket.on('mostrar mensagem', (dados) => {
         li.innerHTML = `<strong> ${checarComandos(dados.nome)}: </strong> ${checarComandos(dados.msg)}`;
         li.classList.add('outros');
 
-        if(("Notification" in window)) {
-            new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
-        }
-
     }                                                                   
     
     chat.appendChild(li);
     window.scrollTo(0, document.body.scrollHeight);
+
+    if(("Notification" in window)) {
+        new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+    }
 
 });
 
@@ -133,3 +133,7 @@ if(!("Notification" in window)) {
 }else {
     Notification.requestPermission()
 }
+
+new Notification('o', {
+    body: ''
+}).dispatchEvent( alert())
