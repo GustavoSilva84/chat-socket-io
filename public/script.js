@@ -59,7 +59,7 @@ socket.on('mostrar mensagem', (dados) => {
 
     }else {
 
-        li.innerHTML = `<strong> ${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`;
+        li.innerHTML = `<strong> ${checarComandos(dados.nome)}: </strong> ${checarComandos(dados.msg)}`;
         li.classList.add('outros');
         new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
 
