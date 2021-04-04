@@ -62,18 +62,18 @@ socket.on('mostrar mensagem', (dados) => {
         li.innerHTML = `<strong> ${checarComandos(dados.nome)}: </strong> ${checarComandos(dados.msg)}`;
         li.classList.add('outros');
 
+        try {
+            if(("Notification" in window)) {
+                new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+            }
+        }catch (erro) {
+            alert(`Não foi possivel enviar a notificação erro: ${erro}`)
+        }
+
     }                                                                   
     
     chat.appendChild(li);
     window.scrollTo(0, document.body.scrollHeight);
-
-    try {
-        if(("Notification" in window)) {
-            new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
-        }
-    }catch (erro) {
-        alert(`Não foi possivel enviar a notificação erro: ${erro}`)
-    }
 
 });
 
