@@ -61,7 +61,10 @@ socket.on('mostrar mensagem', (dados) => {
 
         li.innerHTML = `<strong> ${checarComandos(dados.nome)}: </strong> ${checarComandos(dados.msg)}`;
         li.classList.add('outros');
-        //new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+
+        if(("Notification" in window)) {
+            new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+        }
 
     }                                                                   
     
@@ -123,4 +126,10 @@ function checarComandos(x){
     return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");  
 };
 
-Notification.requestPermission()
+
+
+if(!("Notification" in window)) {
+    alert("Este browser não suporta notificações de Desktop");
+}else {
+    Notification.requestPermission()
+}
