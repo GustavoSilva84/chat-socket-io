@@ -3,6 +3,9 @@ let socket = io();
 let form = document.querySelector('#form');
 let chat = document.querySelector('.chat');
 let digitando = document.querySelector('#digitando > li');
+let body = document.querySelector('body');
+let pessoasOnline = document.querySelector('#pessoasOnline > p');
+let chatLi = document.querySelector('.chat > li')
 
 let mensagem = document.querySelector('#mensagem');
 let nome = localStorage.getItem('nome');
@@ -11,11 +14,15 @@ let id = localStorage.getItem('id');
 function salvarNome() {
 
     if(!nome) {
+
         nome = prompt('Nome');
         id = Math.floor(Math.random() * 100000000000000000000);
+
         localStorage.setItem('nome', nome);
         localStorage.setItem('id', id);
+
         salvarNome();
+
     }
 
 }
@@ -43,10 +50,15 @@ form.addEventListener('submit', (event) => {
     }
 
     socket.emit('enviar mensagem', {nome: nome, msg: mensagem.value, id: id});
-    mensagem.blur();
+    socket.emit('usuario dijitando', false);
+    
     mensagem.value = '';
     
 });
+
+socket.on('carregou', () => {
+    chatLi.style.display = 'none'
+})
 
 socket.on('mostrar mensagem', (dados) => {
 
@@ -60,15 +72,17 @@ socket.on('mostrar mensagem', (dados) => {
     }else {
 
         li.innerHTML = `<strong> ${checarComandos(dados.nome)}: </strong> ${checarComandos(dados.msg)}`;
-        li.classList.add('outros');
+        li.classList.add('outros')
 
         try {
-            if(("Notification" in window)) {
-                new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`)
+
+            if(("Notification" in window) && Notification.permission === "granted") {
+                new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`);
             }
+            
         }catch (erro) {
-            alert(`Não foi possivel enviar a notificação erro: ${erro}`)
-        }
+            console.log(`Não foi possivel enviar a notificação erro: ${erro}`)
+        } 
 
     }                                                                   
     
@@ -76,6 +90,7 @@ socket.on('mostrar mensagem', (dados) => {
     window.scrollTo(0, document.body.scrollHeight);
 
 });
+
 
 socket.on('mostrar mensagens quando usuario entrar', (dados) => {
 
@@ -114,6 +129,16 @@ mensagem.addEventListener('blur', () => {
     socket.emit('usuario dijitando', false)
 })
 
+socket.on('pessoasNaSala', (dados) => {
+
+    if(dados == 1) {
+        pessoasOnline.innerHTML = `Somente você esta na sala`
+    }else {
+        pessoasOnline.innerHTML = `Você e mais ${dados - 1} pessoas estão na sala`
+    }
+    
+})
+
 socket.on('mostrar usuario dijitando', (dados) => {
 
     if(dados) {
@@ -133,5 +158,9 @@ function checarComandos(x){
 if(!("Notification" in window)) {
     alert("Este browser não suporta notificações de Desktop");
 }else {
-    Notification.requestPermission()
+    
+    if(Notification.permission === 'denied' || Notification.permission === 'default') {
+        Notification.requestPermission()
+    }
+    
 }

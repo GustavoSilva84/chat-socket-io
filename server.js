@@ -8,22 +8,28 @@ const io = require('socket.io')(http);
 
 app.use(express.static(`${__dirname}/public`));
 const chalk = require('chalk');
+const { watch } = require('fs');
 
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/public/html/index.html`);
 });
 
 let mensagens = [];
+let pessoasNaSala = 0;
 
 io.on('connection', (socket) => {
 
-    socket.emit('mostrar mensagens quando usuario entrar', mensagens);
+    pessoasNaSala++
+    io.emit('pessoasNaSala', pessoasNaSala)
 
+    socket.emit('mostrar mensagens quando usuario entrar', mensagens)
+     
     socket.on('enviar mensagem', (dados) => {
 
         mensagens.push(dados);
         console.log(mensagens);
         io.emit('mostrar mensagem', dados)
+        io.emit('new', dados)
 
     });
 
@@ -31,9 +37,13 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('mostrar usuario dijitando', dados)
     })
 
-    // socket.on('usuario nao dijitando', () => {
-    //     socket.broadcast.emit('mostrar nao usuario dijitando')
-    // })
+    socket.on('disconnect', () => {
+        pessoasNaSala--
+        io.emit('pessoasNaSala', pessoasNaSala)
+    })
+
+    io.emit('carregou')
+
 
 })
 
