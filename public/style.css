@@ -88,11 +88,18 @@ body {
     100% { content: 'Alguem esta digitando...'; }
 }
 
-#pessoasOnline {
-    max-width: 800px;
-    margin: 0 auto;
+#d {
     display: flex;
     justify-content: center;
+}
+
+#pessoasOnline {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    max-width: 800px;
+    width: 100%;
+    top: 0;
     background: rgb(183, 0, 255);
 }
 
