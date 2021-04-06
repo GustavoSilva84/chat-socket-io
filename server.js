@@ -8,7 +8,6 @@ const io = require('socket.io')(http);
 
 app.use(express.static(`${__dirname}/public`));
 const chalk = require('chalk');
-const { watch } = require('fs');
 
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/public/html/index.html`);
@@ -21,6 +20,7 @@ io.on('connection', (socket) => {
 
     pessoasNaSala++
     io.emit('pessoasNaSala', pessoasNaSala)
+    //socket.broadcast.emit('pessoas', true)
 
     socket.emit('mostrar mensagens quando usuario entrar', mensagens)
      
@@ -39,7 +39,9 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         pessoasNaSala--
-        io.emit('pessoasNaSala', pessoasNaSala)
+        io.emit('pessoasNaSala', pessoasNaSala, false)
+        //socket.broadcast.emit('pessoas', false)
+        socket.broadcast.emit('mostrar usuario dijitando', false)
     })
 
     io.emit('carregou')
@@ -47,7 +49,7 @@ io.on('connection', (socket) => {
 
 })
 
-http.listen(process.env.PORT || 8181, erro => {
+http.listen(process.env.PORT || 8181, (erro) => {
 
     if(erro) {
         return console.log(`Erro: ${erro}`);

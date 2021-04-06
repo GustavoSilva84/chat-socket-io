@@ -56,6 +56,7 @@ form.addEventListener('submit', (event) => {
     
 });
 
+
 socket.on('carregou', () => {
     chatLi.style.display = 'none'
 })
@@ -66,7 +67,7 @@ socket.on('mostrar mensagem', (dados) => {
 
     if(id == dados.id) {
 
-        li.innerHTML = `<strong> Eu: </strong> ${checarComandos(dados.msg)} `;
+        li.innerHTML = `${checarComandos(dados.msg)} `;
         li.classList.add('eu');
 
     }else {
@@ -76,10 +77,12 @@ socket.on('mostrar mensagem', (dados) => {
 
         try {
 
-            if(("Notification" in window) && Notification.permission === "granted") {
-                new Notification(`${checarComandos(dados.nome)}: ${checarComandos(dados.msg)}`);
+            if(!document.hasFocus()) {
+                if(("Notification" in window) && Notification.permission === "granted") {
+                new Notification(`${checarComandos(dados.nome)}`, {body: `${checarComandos(dados.msg)}` });
+                }
             }
-            
+
         }catch (erro) {
             console.log(`Não foi possivel enviar a notificação erro: ${erro}`)
         } 
@@ -100,7 +103,7 @@ socket.on('mostrar mensagens quando usuario entrar', (dados) => {
 
         if(id == dados.id) {
 
-            li.innerHTML = `<strong> Eu: </strong> ${checarComandos(dados.msg)} `;
+            li.innerHTML = `${checarComandos(dados.msg)} `;
             li.classList.add('eu');
 
         }else {
@@ -151,6 +154,22 @@ socket.on('mostrar usuario dijitando', (dados) => {
 
 });
 
+// socket.on('pessoas', (i) => {
+
+//     let li = document.createElement('li');
+
+//     if(i) {
+//         li.innerHTML = `Alguem entrou na sala`;
+//     }else { 
+//         li.innerHTML = `Alguem saiu da sala`;
+//     }
+    
+//     li.classList.add('outros');
+//     chat.appendChild(li);
+//     window.scrollTo(0, document.body.scrollHeight);
+
+// })
+
 function checarComandos(x){
     return x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");  
 };
@@ -164,3 +183,4 @@ if(!("Notification" in window)) {
     }
     
 }
+
