@@ -1,5 +1,9 @@
 const { app, http, io } = require('./app');
 
+app.get('/', (req, res) => {
+    res.sendFile(`${__dirname}/public/html/index.html`);
+});
+
 let mensagens = [];
 let pessoasNaSala = 0;
 

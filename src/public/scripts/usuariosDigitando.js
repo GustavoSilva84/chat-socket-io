@@ -1,6 +1,3 @@
-const inputMensagem = document.querySelector('#inputMensagem');
-const usuarioDigitando = document.querySelector('#digitando > li');
-
 inputMensagem.addEventListener('keypress', () => {
     socket.emit('digitando', true);
 });

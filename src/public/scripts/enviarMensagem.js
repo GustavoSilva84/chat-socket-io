@@ -11,7 +11,7 @@ form.addEventListener('submit', (event) => {
         return alert('Id não preenchido');
     }
 
-    if(!mensagem.value.trim()){
+    if(!inputMensagem.value.trim()){
         return alert('Mensagem não preenchido');
     }
 
@@ -21,12 +21,12 @@ form.addEventListener('submit', (event) => {
 
     socket.emit('enviar mensagem', {
         nome, 
-        msg: mensagem.value,
+        msg: inputMensagem.value,
         id
     });
 
     socket.emit('digitando', false);
     
-    mensagem.value = '';
+    inputMensagem.value = '';
     
 });
