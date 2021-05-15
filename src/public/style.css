@@ -1,0 +1,114 @@
+body { 
+    background: rgb(0, 0, 0);
+    margin: 0; 
+    padding-bottom: 3rem; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    color: rgb(255, 255, 255);
+}
+
+#form {
+    background: rgba(0, 0, 0, 0.66);
+    margin:  0 auto;
+    max-width: 800px;
+    padding: 0.25rem; 
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    display: flex; 
+    height: 3rem;
+    box-sizing: border-box; 
+}
+
+#inputMensagem {
+    border: none; 
+    padding: 0 1rem; 
+    flex-grow: 1; 
+    border-radius: 2rem; 
+    margin: 0.25rem; 
+    background: rgb(48, 48, 48);
+    color: rgb(255, 255, 255);
+}
+
+
+#inputMensagem:focus { outline: none; }
+
+#form  button { 
+    background: rgb(86, 71, 235);
+    border: none; 
+    padding: 0 1rem; 
+    margin: 0.25rem; 
+    border-radius: 3px; 
+    outline: none;
+    color: rgb(255, 255, 255);
+}
+
+.chat {
+    max-width: 800px;
+    list-style-type: none; 
+    margin: 0 auto; 
+    padding: 0; 
+}
+
+.chat > li {
+    max-width: 80%;
+    width: fit-content;
+    padding: 0.5rem 1rem; 
+    word-wrap: break-word;
+    
+}
+
+.chat > li > strong {
+    font-weight: 400; 
+    
+}
+
+.eu {
+    background: rgb(86, 71, 235);
+    margin: 10px 10px 10px auto;
+    border-radius: 10px 20px 0 10px;
+}
+
+.outros {
+    background: rgb(48, 48, 48);
+    margin: 10px 10px 10px 10px;
+    border-radius: 20px 10px 10px 0;
+}
+
+#digitando li {
+    display: none;
+    background: rgb(48, 48, 48);
+    margin: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 0;
+}
+
+#digitando li::before {
+    content: '';
+    animation: animacao infinite 1s;
+}
+
+@keyframes animacao {
+    0% { content: 'Alguem esta digitando.'; }
+    50% { content: 'Alguem esta digitando..'; }
+    100% { content: 'Alguem esta digitando...'; }
+}
+
+#d {
+    display: flex;
+    justify-content: center;
+}
+
+#pessoasOnline {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    max-width: 800px;
+    width: 100%;
+    top: 0;
+    background: rgb(86, 71, 235);
+}
+
+#pessoasOnline > p {
+    margin: 5px;
+    color: rgb(255, 255, 255);
+}

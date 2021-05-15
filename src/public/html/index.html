@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>Socket.IO chat</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    
+
+  </head>
+  <body>
+    
+    <div id="d"><div id="pessoasOnline"><p>Carregando</p></div></div><br><br>
+    
+    <ul class="chat"><li>carregando</li></ul>
+    
+    <ul class="chat" id="digitando"><li class="outros"></li></ul>
+
+    <form id="form">
+      <input id="inputMensagem" autocomplete="off"/><button>enviar</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../scripts/script.js"></script>
+
+    <script src="../scripts/usuariosNaSala.js"></script>
+    <script src="../scripts/usuariosDigitando.js"></script>
+    <script src="../scripts/enviarMensagem.js"></script>
+    <script src="../scripts/mostrarMensagem.js"></script>
+
+  </body>
+</html>
