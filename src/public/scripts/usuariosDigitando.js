@@ -5,6 +5,10 @@ inputMensagem.addEventListener('keypress', () => {
     socket.emit('digitando', true);
 });
 
+inputMensagem.addEventListener('focus', () => {
+    socket.emit('digitando', true);
+});
+
 inputMensagem.addEventListener('blur', () => {
     socket.emit('digitando', false);
 });

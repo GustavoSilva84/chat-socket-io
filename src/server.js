@@ -7,7 +7,7 @@ io.on('connection', (socket) => {
 
     io.emit('pessoasNaSala', ++pessoasNaSala)
 
-    socket.emit('mostrar mensagens quando usuario entrar', mensagens)
+    socket.emit('carregarMensagens', mensagens)
      
     socket.on('enviar mensagem', (dados) => {
         mensagens.push(dados);

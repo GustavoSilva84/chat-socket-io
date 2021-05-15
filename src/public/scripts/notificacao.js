@@ -1,8 +1,8 @@
-function enviar() {
+function enviar(dados) {
 
     try {
 
-        if(document.hasBlur()) {
+        if(!document.hasFocus()) {
 
             if(("Notification" in window) && Notification.permission === "granted") {
                 new Notification(`${removerComandos(dados.nome)}`, {body: `${removerComandos(dados.msg)}` });
