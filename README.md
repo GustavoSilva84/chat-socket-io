@@ -2,8 +2,6 @@
 
 <a href="https://chat-socket-io-gustavo.herokuapp.com"> Link do site </a>
 
----
-
 ## Caso aqueira baixa esse projeto em sua maquina 
 
 Você pode baixar ele de duas formas, usando o git ou baixando um arquivo .zip
